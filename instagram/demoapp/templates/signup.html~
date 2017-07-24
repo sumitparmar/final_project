@@ -16,6 +16,7 @@
 			<h3>signup</h3> 
 			<h4>Today's date and time :{{today}}</h4>
 			<form method = "post">
+			{% csrf_token  %}
 				<div>
 					<label for="username">username: </labeil>
 						<input id="username" type="text" name ="username" value="{{ username }}">

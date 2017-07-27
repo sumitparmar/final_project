@@ -8,6 +8,7 @@ from django.contrib.auth.hashers import make_password , check_password
 from demoapp.models import UserModel,SessionToken,PostModel
 from imgurpython import ImgurClient
 from instagram.settings import BASE_DIR
+import os
 
 # Create your views here.
 def signup_view(request):
@@ -81,28 +82,28 @@ def check_validation(request):
 
 def post_view(request):
     user = check_validation(request)
-
+    form = PostForm()
     if user:
         if request.method == 'GET':
             form = PostForm()
-        return render(request,'post.html',{'form': form})
-    elif request.method == 'POST':
-        form = PostForm(request.POST,request.FILES)
-        if form.is_valid():
-            image = form.cleaned_data.get('image')
-            caption = form.cleaned_data.get('caption')
-            post = PostModel(user=user, image=image,caption=caption)
-            post.save()
-
-            path = str(BASE_DIR + post.image.url)
-
-            client = ImgurClient('4e7e0f86b1ec9cd', '826ae58b2d75e41570e839f954b5ff3de73c4514')
-            post.image_url = client.upload_from_path(path,anon=True)['link']
-            post.save()
-
-            return redirect('/feed/')
-        else:
-            form = PostForm()
-            return render(request, 'post.html',{'form': form})
+            return render(request,'post.html',{'form': form})
+        elif request.method == 'POST':
+            form = PostForm(request.POST,request.FILES)
+            if form.is_valid():
+                image = form.cleaned_data.get('image')
+                caption = form.cleaned_data.get('caption')
+                userpost = PostModel(user=user, image=image,caption=caption)
+                userpost.save()
+                print userpost.image.url
+                path = os.path.join(BASE_DIR , userpost.image.url)
+                print BASE_DIR
+                print path
+                client = ImgurClient('4e7e0f86b1ec9cd', '826ae58b2d75e41570e839f954b5ff3de73c4514')
+                userpost.image_url = client.upload_from_path(path,anon=True)['link']
+                userpost.save()
+                return redirect('/feed/')
+            else:
+                form = PostForm()
+                return render(request, 'post.html',{'form': form})
     else:
         return redirect('/login/')

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div>
-			<form method = "POST"  action="/post/">
+			form method = "POST"  action="/post/">
 			{% csrf_token  %}
 			{{ form  }}
 			<input type = "submit" class = "btn btn-default" value="create post">

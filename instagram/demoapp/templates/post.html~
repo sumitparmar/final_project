@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>post page</title>
+		<meta charset="utf-8">
+		<meat http-equiv="X-UA-content" content="IE=edge">
+		<meta name="viewport" content="width=advice-width, initial-scale=1">
+		<!--Bootstrap-->
+		<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+	</head>
+	<body>
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token }
+			{{ form }}
+			<input type="submit" class="btn btn-default" value="add a picture">
+		</form>
+		<!--javascript files-->
+		<!--jquery library-->
+		<script src="{% static "js/jquery-3.2.1.js" %}">
+		</script>
+		<!--bootstrap js library-->
+		<script src="{% static "js/bootstrap.js" %}">
+		</script>
+	</body>
+</html>
+

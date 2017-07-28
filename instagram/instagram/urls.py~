@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^login/', login_view),
     url(r'^feed/',feed_view),
     url(r'^post/',post_view),
+    url(r'^like/', like_view),
 ]

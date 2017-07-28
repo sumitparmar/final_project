@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from views import signup_view
-from views import login_view,feed_view,post_view
+from views import login_view,feed_view,post_view,like_view
 from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^login/', login_view),
     url(r'^feed/',feed_view),
     url(r'^post/',post_view),
+    url(r'^like/', like_view),
 ]

@@ -1,0 +1,33 @@
+{%load static %}
+<!Doctype html>
+<html>
+	<head>
+		<title>welcome page</title>
+
+		<meta charset = "utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--Bootstrap-->
+		<link href = "{% static "css/bootstrap.css" %}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="row">
+		<div class="col-sm-4 col-sm-offset-4">
+			<h1>Upload To Win</h1>
+			<form method = "post">
+				{% csrf_token %}
+				<div>
+					<input type="submit" value="signup" class="btn btn-success">
+				</div>
+				<div>
+					<input type="submit" value="login" class="btn btn-success">
+			</form>
+		</div>
+		</div>
+			<!--Javascript files-->
+			<!--jquery library-->
+			<script src="{% static "js/jquery-3.2.1.js" %}"></script>
+			<!--bootstrap js library-->
+			<script src="{% static "js/bootstrap.js" %}"></script>
+	</body>
+</html>

@@ -144,3 +144,6 @@ def comment_view(request):
             return redirect('/feed/')
     else:
         return redirect('/login/')
+
+def welcome_view(request):
+    return render(request, 'first.html')

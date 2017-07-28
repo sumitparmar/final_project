@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
 from datetime import datetime
-from demoapp.forms import SignUpForm,LoginForm,PostForm,LikeForm
+from demoapp.forms import SignUpForm,LoginForm,PostForm,LikeForm,CommentForm
 from django.contrib.auth.hashers import make_password , check_password
-from demoapp.models import UserModel,SessionToken,PostModel,LikeModel
+from demoapp.models import UserModel,SessionToken,PostModel,LikeModel,CommentModel
 from imgurpython import ImgurClient
 from instagram.settings import BASE_DIR
 import os
@@ -127,5 +127,20 @@ def like_view(request):
                 existing_like.delete()
             return redirect('/feed/')
 
+    else:
+        return redirect('/login/')
+
+def comment_view(request):
+    user = check_validation(request)
+    if user and request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post_id = form.cleaned_data.get('post').id
+            comment_text = form.cleaned_data.get('comment_text')
+            comment = CommentModel.objects.create(user=user,post_id=post_id,comment_text=comment_text)
+            comment.save()
+            return redirect('/feed/')
+        else:
+            return redirect('/feed/')
     else:
         return redirect('/login/')

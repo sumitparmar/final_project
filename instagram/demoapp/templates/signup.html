@@ -9,34 +9,70 @@
 
 		<!--Bootstrap-->
 		<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+		<style>
+			h1{
+				margin-top:90px;
+				margin-left: 30px;
+				color: pink;
+				text-transform: capitalize;
+				text-shadow: 3px 2px black;
+				height: 60px;
+				text-align: center;
+				font-family: "monospace serif sans-serif";
+			}
+			label{
+					margin-bottom: 30px;
+					 width:180px;
+    				clear:left;
+    				text-align:right;
+    				padding-right:20x;
+    				color: black;
+			}
+			.div1{
+					float:left;
+					 margin-left: 40px;
+			}
+
+
+		</style>
 	</head>
 
-	<body>
-		<div>
-			<h1>Upload to win </h1>
-			<h3>signup</h3> 
-			<h4>Today's date and time :{{today}}</h4>
+	<body background={% static "images/banner.jpg" %}>
+		<div style="text-align: center;">
+
+			<h1>SIGNUP</h1>
+			<h4>Today's date and time : {{ today }}</h4>
 			<form method = "post">
 			{% csrf_token  %}
-				<div>
-					<label for="username">username: </labeil>
+				<div class="row">
+  					<div class="col-md-1 col-xs-12 col-sm-8">
+	  					<img class="img-circle" src={% static "images/p.jpg" %} height="250" width="250" style="margin-left: 250px;" >
+  					</div>
+  					<div class="col-md-11 col-xs-12 col-sm-4">
+						<div >
+					<label for="username">username: </label>
 						<input id="username" type="text" name ="username" value="{{ username }}">
 				</div>
-			
+
 				<div>
-					<label for="name">Name: </label>
+					<label for="name">Name:  </label>
 					<input id="name" type="text" name="name" value="{{ name }}">
-			
+
 				</div>
 				<div>
-					<label for="email">Email: </label>
+					<label for="email">Email:  </label>
 					<input id="email" type="text" name="email" value="{{ email }}">
 				</div>
 				<div>
 					<label for="password">Password: </label>
 					<input id="password" type="password" name="password" value="{{ password }}">
 				</div>
-					<input type="submit" value="Sign Up">
+					<input type="submit" class="btn btn-success"  value="Sign Up">
+
+					</div>
+				</div>
+
+
 			</form>
 		</div>
 		<!--Javascript files-->

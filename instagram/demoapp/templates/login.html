@@ -9,12 +9,33 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Bootstrap -->
 		<link href = "{%static "css/bootstrap.css" %}" rel="stylesheet">
+		<style>
+			h1{
+				margin-top:90px;
+				margin-left: 550px;
+				color: red;
+				text-transform: capitalize;
+				text-shadow: 3px 2px black;
+				height: 60px;
+				text-align: center;
+				font-family: "monospace serif sans-serif";
+			}
+			input{
+				margin-left: 550px;
+			}
+			label{
+			margin-left: 550px;
+			margin-bottom:10px;
+			margin-top:10px;
+			}
+
+		</style>
 	</head>
-	<body>
+	<body background={% static "images/l.jpg" %}>
 		<div class="row">
-		<div class="col-sm-4 col-sm-offset-4">
-			<h1>upload to win </h1>
-			<h3>Login </h3>
+		<div class="col-sm-4 col-sm-offset-4 ">
+
+			<h1>LOGIN </h1>
 			<form method = "post">
 				{% csrf_token %}
 					<div>
@@ -25,8 +46,9 @@
 						<label for = "password">Password: </label>
 						<input id ="password" type="password" name="password" value="">
 					</div>
-					<input type="submit" value="Login" class="btn btn-success">
+					<input type="submit" value="Login" class="btn btn-success" style="margin-top: 20px;">
 			</form>
+
 		</div>
 		</div>
 			<!--Javascript files-->

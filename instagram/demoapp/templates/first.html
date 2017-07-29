@@ -8,28 +8,101 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--Bootstrap-->
+	
 		<link href = "{% static "css/bootstrap.css" %}" rel="stylesheet">
+		<style>
+			img{
+			width: 100% ;
+
+			}
+			h1{
+				margin-top:90px;
+				color: green;
+				text-transform: capitalize;
+				text-shadow: 3px 2px yellow;
+				height: 40px;
+				text-align: justify;
+			}
+			input{
+			 margin-left: 50px;
+			 margin-top: 10px;
+			 margin-right: 150px;
+			}
+
+		</style>
 	</head>
-	<body background="b.jpg"> 
+	<body background={% static "images/b.jpg" %}>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<!--row3-->
+				<div class="row">
+					<!--Left column-->
+					<div class="col-xs-12 col-sm-8">
+						<ul class="nav navbar-nav">
+							<li><a href="#" style="margin-right: 120px;">Upload to win</a></li>
+							<li><input type="text" placeholder="search" ></input></li>
+							<li><a href="#" style="margin-right: 120px;">Help</a></li>
+							<li><a href="#">Message</a></li>
+
+						</ul>
+					</div>
+					<!--./Left column-->
+				</div>
+				<!--./row3-->
+			</div>
+	</nav>
+
 		<div class="row">
-			
+
 		<div class="col-sm-4 col-sm-offset-4">
-			<div i>
+			<div style="margin-bottom:50px;" >
 			<h1>Upload To Win</h1>
-			<img src = {% static "b1.JPG" %}>
+			<img src ={% static "images/upload-icon.png" %} height="200" width="200" >
+
 			</div>
 			<form method = "post">
 				{% csrf_token %}
-				<div style="margin-right: 40px; margin-top:20px;">
+				<div style="margin-right:40px; margin-top:20px;">
 					
-					<input type="submit" value="signup" class="btn btn-success">
+					<a  value="signup" class="btn btn-success" value="signup" href="/signup">signup</a>
 				
-				
-					<input type="submit" value="login" class="btn btn-success">
+					<a class="btn btn-success" value="login" href="/login" style="margin-left: 50px;">login</a>
+
 				</div>
 			</form>
 		</div>
 		</div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom">
+			<div class="container-fluid">
+				<!--row3-->
+				<div class="row">
+					<!--Left column-->
+					<div class="col-xs-12 col-sm-8">
+						<ul class="nav navbar-nav">
+							<li><a href="#">ABOUT US</a></li>
+							<li><a href="#">SUPPORT</a></li>
+							<li><a href="#">BLOG</a></li>
+							<li><a href="#">PRESS</a></li>
+							<li><a href="#">API</a></li>
+							<li><a href="#">JOBS</a></li>
+							<li><a href="#">PRIVACY</a></li>
+							<li><a href="#">TERMS</a></li>
+							<li><a href="#">LANGUAGE</a></li>
+						</ul>
+					</div>
+					<!--./Left column-->
+
+					<!--Right column-->
+					<div class="col-xs-12 col-sm-4">
+						<p class="navbar-text">
+							&copy; 2017 Upload to win
+						</p>
+					</div>
+					<!--./Right column-->
+				</div>
+				<!--./row3-->
+			</div>
+		</nav>
 			<!--Javascript files-->
 			<!--jquery library-->
 			<script src="{% static "js/jquery-3.2.1.js" %}"></script>

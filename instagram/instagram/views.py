@@ -69,7 +69,7 @@ def login_view(request):
 def feed_view(request):
     user = check_validation(request)
     if user:
-        posts = PostModel.objects.all().order_by('created_on')
+        posts = PostModel.objects.all().order_by('-id')[:]
         for post in posts:
             existing_like = LikeModel.objects.filter(post_id=post.id, user=user).first()
             if existing_like:
@@ -149,3 +149,6 @@ def comment_view(request):
 
 def welcome_view(request):
     return render(request, 'first.html')
+
+def logout_view(request):
+    return render(request,'logout.html')

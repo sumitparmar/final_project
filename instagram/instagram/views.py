@@ -56,7 +56,7 @@ def signup_view(request):
             name1 = "these fields are incorrect or not entered"
             return redirect("/signup/")
 
-    return render(request, template_name, {'form':form,'today':today, 'name1':name1})
+    return render(request, template_name, {'form':form,'today':today, 'name1':name1, })
 
 # This view handles the login.html
 # the user with only valid credentials and requesting with post method can log in

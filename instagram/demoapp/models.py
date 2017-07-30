@@ -9,7 +9,7 @@ import uuid
 # a user model with following fields
 # it will store the user details
 class UserModel (models.Model):
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, blank=False, unique=True)
     name = models.CharField(max_length=120)
     username = models.CharField(max_length=120)
     password = models.CharField(max_length=40)

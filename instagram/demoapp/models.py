@@ -7,7 +7,7 @@ import uuid
 # Create your models here.
 
 class UserModel (models.Model):
-    email = models.EmailField()
+    email = models.EmailField(max_length=254)
     name = models.CharField(max_length=120)
     username = models.CharField(max_length=120)
     password = models.CharField(max_length=40)
@@ -29,7 +29,8 @@ class PostModel(models.Model):
     caption = models.CharField(max_length=240)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
+    has_liked = False
+
     @property
     def like_count(self):
         return len(LikeModel.objects.filter(post=self))
@@ -52,6 +53,7 @@ class CommentModel(models.Model):
     comment_text = models.CharField(max_length=555)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    upvoted = False
 
     @property
     def upvote(self):

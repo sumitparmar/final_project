@@ -7,8 +7,9 @@ from demoapp.forms import SignUpForm,LoginForm,PostForm,LikeForm,CommentForm,Lik
 from django.contrib.auth.hashers import make_password , check_password
 from demoapp.models import UserModel,SessionToken,PostModel,LikeModel,CommentModel,LikeComm
 from imgurpython import ImgurClient
-from instagram.settings import BASE_DIR
+from instagram.settings import *
 from django.http import HttpResponse
+from django.core.mail import send_mail
 import os
 
 # Create your views here.
@@ -34,6 +35,11 @@ def signup_view(request):
                 name1=""
                 new_user = UserModel(name=name, password=make_password(password), email=email, username=username)
                 new_user.save()
+                subject = 'Welcome to Upload To Win'
+                message = 'Thanks for joining "Upload ToWIn" where you can view , comment and like photos of your intrest'
+                from_email = EMAIL_HOST_USER
+                to_email = [new_user.email]
+                send_mail(subject, message, from_email, to_email)
                 return redirect("/login/")
         else:
             name1 = "these fields are incorrect or not entered"
@@ -133,8 +139,20 @@ def like_view(request):
            
             if not existing_like:
                 LikeModel.objects.create(post_id=post_id, user=user)
+                poster = PostModel.objects.filter(id=post_id).first()
+                subject = "Your photo was liked"
+                message = "Your photo was liked by" + " " +user.username
+                from_email = EMAIL_HOST_USER
+                to_email = [poster.user.email]
+                send_mail(subject, message, from_email, to_email)
             else:
                 existing_like.delete()
+                poster = PostModel.objects.filter(id=post_id).first()
+                subject = "Your photo was unliked"
+                message = "Your photo was unliked by" + " " + user.username
+                from_email = EMAIL_HOST_USER
+                to_email = [poster.user.email]
+                send_mail(subject, message, from_email, to_email)
             return redirect('/feed/')
 
     else:
@@ -149,6 +167,12 @@ def comment_view(request):
             comment_text = form.cleaned_data.get('comment_text')
             comment = CommentModel.objects.create(user=user,post_id=post_id,comment_text=comment_text)
             comment.save()
+            poster = PostModel.objects.filter(id=post_id).first()
+            subject = "Comment on your photo"
+            message = str(user.username) + " " + "commented on your photo" + " " + comment_text
+            from_email = EMAIL_HOST_USER
+            to_email = [poster.user.email]
+            send_mail(subject, message, from_email, to_email)
             return redirect('/feed/')
         else:
             return redirect('/feed/')

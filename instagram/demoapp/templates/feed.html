@@ -22,6 +22,10 @@
 				text-align: center;
 				font-family: "monospace serif sans-serif";
 			}
+			.s{
+				margin-top: 10px;
+				margin-left:500px;
+			}
 		</style>
 	</head>
 
@@ -31,8 +35,15 @@
 			{% csrf_token  %}
 			{{ form  }}
 			<input type = "submit" class = "btn btn-success" value="create post" style="margin-right: 1000px; margin-top: 20px">
-				<a class="btn btn-success" value="logout" href="/logout/" style="margin-left: 50px;">logout</a>
+				<a class="btn btn-success" value="logout" href="/welcome/" style="margin-left: 50px;">logout</a>
 			</form>
+
+		<div class="s">
+   	 		<form method="get" action="/search/">
+        		<input type="text" name="q" placeholder="Show posts from">
+        		<input type="submit" value="Search" class="btn btn-success">
+    		</form>
+		</div>
 		</div>
 		<div>
 			<h1>NEW FEEDS</h1>

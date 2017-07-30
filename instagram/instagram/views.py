@@ -162,7 +162,7 @@ def welcome_view(request):
 
 def logout_view(request):
 	if request.COOKIES.get('session_token'):
-		response = redirect('/logout/')
+		response = redirect('/welcome/')
 		response.set_cookie(key='session_token', value=None)
 		return response
 	else:
@@ -182,3 +182,10 @@ def like_comm(request):
 			return redirect('/feed/')
 	else:
 		return redirect('/login/')
+
+def search(request):
+  	if "q" in request.GET:
+  		q = request.GET["q"]
+  		posts = PostModel.objects.filter(user__username__icontains=q)
+  		return render(request, "feed.html", {"posts": posts, "query": q})
+  	return render(request, "feed.html")

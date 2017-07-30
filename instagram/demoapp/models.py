@@ -39,6 +39,7 @@ class PostModel(models.Model):
         return CommentModel.objects.filter(post=self).order_by('created_on')
 
 
+
 class LikeModel(models.Model):
     user = models.ForeignKey(UserModel)
     post = models.ForeignKey(PostModel)
@@ -52,3 +53,10 @@ class CommentModel(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
+    @property
+    def upvote(self):
+        return len(LikeComm.objects.filter(comment=self))
+
+class LikeComm(models.Model):
+	user = models.ForeignKey(UserModel)
+	comment = models.ForeignKey(CommentModel)

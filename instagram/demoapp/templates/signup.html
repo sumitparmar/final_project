@@ -68,12 +68,23 @@
 					<input id="password" type="password" name="password" value="{{ password }}">
 				</div>
 					<input type="submit" class="btn btn-success"  value="Sign Up">
-
+						<h5>{{ name1 }} </h5>
 					</div>
 				</div>
-
-
 			</form>
+			 {% for comment in post.comments %}
+                        <p><b><span class="user">{{ comment.user.username }}</span><br> <span class="dated">[{{ comment.created_on }}]:</b></span><span class="comm">{{ comment.comment_text }}</span></p>
+                        {{ comment.upvote }} likes this
+                    <form method="POST" action="/like_comm/">
+                        {% csrf_token %}
+                            <input type="hidden" name="comment" value="{{ comment.id }}" />
+                        {% if comment.upvoted %}
+                            <input type="submit" value="Up/Down Vote" class="button">
+                        {% else %}
+                            <input type="submit" value="Up/Down Vote" class="button">
+                        {% endif %}
+                    </form>
+                    {% endfor %}
 		</div>
 		<!--Javascript files-->
 		<!--Jquery library-->

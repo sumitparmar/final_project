@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from views import signup_view
-from views import login_view,feed_view,post_view,like_view,comment_view,welcome_view,logout_view
+from views import login_view,feed_view,post_view,like_view,comment_view,welcome_view,logout_view,like_comm
 from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^like/', like_view),
     url(r'^logout/',logout_view),
     url(r'^comment/',comment_view),
-    url(r'',welcome_view),
+    url(r'^welcome/',welcome_view),
+url(r'^like_comm/$', like_comm),
 
 ]

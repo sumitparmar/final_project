@@ -3,19 +3,21 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
 from datetime import datetime
-from demoapp.forms import SignUpForm,LoginForm,PostForm,LikeForm,CommentForm
+from demoapp.forms import SignUpForm,LoginForm,PostForm,LikeForm,CommentForm,LikeCommForm
 from django.contrib.auth.hashers import make_password , check_password
-from demoapp.models import UserModel,SessionToken,PostModel,LikeModel,CommentModel
+from demoapp.models import UserModel,SessionToken,PostModel,LikeModel,CommentModel,LikeComm
 from imgurpython import ImgurClient
 from instagram.settings import BASE_DIR
+from django.http import HttpResponse
 import os
 
 # Create your views here.
 def signup_view(request):
     #business logic.
+    name1={}
     if request.method == 'GET':
         #display signup form
-        today = datetime.now
+        today = datetime.now()
         form = SignUpForm()
         template_name = 'signup.html'
     elif request.method == 'POST':
@@ -26,13 +28,18 @@ def signup_view(request):
             name = form.cleaned_data['name']
             password = form.cleaned_data['password']
             # insert data to db
-            new_user = UserModel(name=name, password=make_password(password), email=email, username=username)
-            new_user.save()
-            return redirect("/login/")
+            if username== None or name == None or len(username)<4 or len(password)<5:
+                name1="these fields are incorrect or not entered"
+            else:
+                name1=""
+                new_user = UserModel(name=name, password=make_password(password), email=email, username=username)
+                new_user.save()
+                return redirect("/login/")
         else:
+            name1 = "these fields are incorrect or not entered"
             return redirect("/signup/")
 
-    return render(request, template_name, {'form':form},{'today':today})
+    return render(request, template_name,name1, {'form':form,'today':today})
 def login_view(request):
     response_data={}
     if request.method == 'GET':
@@ -58,9 +65,10 @@ def login_view(request):
                     return response
                 else:
                     #password incorrect.
-
+                    HttpResponse("wrong password entered")
                     response_data['message'] = 'Incorrect Password! Please try again!'
-            
+            else:
+                HttpResponse("form data is not valid")
     
     response_data['form'] = form
     return render(request,'login.html', response_data)
@@ -150,5 +158,27 @@ def comment_view(request):
 def welcome_view(request):
     return render(request, 'first.html')
 
+
+
 def logout_view(request):
-    return render(request,'logout.html')
+	if request.COOKIES.get('session_token'):
+		response = redirect('/logout/')
+		response.set_cookie(key='session_token', value=None)
+		return response
+	else:
+		return None
+
+def like_comm(request):
+	user = check_validation(request)
+	if user and request.method == 'POST':
+		form = LikeCommForm(request.POST)
+		if form.is_valid():
+			comment_id = form.cleaned_data.get('comment').id
+			existing_like = LikeComm.objects.filter(comment_id=comment_id, user=user).first()
+			if not existing_like:
+				LikeComm.objects.create(comment_id=comment_id, user=user,)
+			else:
+				existing_like.delete()
+			return redirect('/feed/')
+	else:
+		return redirect('/login/')

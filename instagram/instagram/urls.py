@@ -18,6 +18,8 @@ from django.contrib import admin
 from views import signup_view
 from views import login_view,feed_view,post_view,like_view,comment_view,welcome_view,logout_view,like_comm,search
 from django.conf.urls.static import static
+
+#all urls are created here
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/', signup_view),

@@ -1,4 +1,4 @@
 # finalproject
 final project of backend python course from acadview
 
-**Author : Muskaan Sehgal**
+**Author : Sumit Parmar**
